@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  database:
+    image: ghusta/postgres-world-db:2.3
+    container_name: worlddb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - PGPASSWORD=world123
+      - PGUSER=world
+      - PGDATABASE=world-db
+      - PGPORT=5432
+    ports:
+      - 5432:5432
+  app:
+    build: .
+    container_name: javaworkshop
+    ports:
+     - 8080:8080
+    depends_on:
+      - database
+
+volumes:
+  pgdata: {}
